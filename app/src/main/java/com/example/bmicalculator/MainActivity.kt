@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
             val bmi= weight.toFloat()/((height.toFloat())/100*(height.toFloat())/100)
             //for result with 2 decimal places
             val bmi2Digits = String.format("%.2f",bmi).toFloat()
-            displayResult(bmi2Digits)
+            displayResult(bmi2Digits,weight.toFloat(),height.toFloat())
             }
         }
     }
@@ -43,12 +43,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    private fun displayResult(bmi:Float){
+    private fun displayResult(bmi:Float,weight:Float,height:Float){
         val resultIndex=findViewById<TextView>(R.id.tvIndex)
         val resultDescription=findViewById<TextView>(R.id.tvResult)
         val info=findViewById<TextView>(R.id.tvInfo)
         resultIndex.text=bmi.toString()
-        info.text="(Normal Range is 18.5 - 24.9)"
+        info.text=""
 
         var resultText=""
         var color= 0
@@ -57,19 +57,26 @@ class MainActivity : AppCompatActivity() {
             bmi<18.50->{
                 resultText="Underweight"
                 color=R.color.underweight
+                info.text="Eat food skinny bitch"
             }
             bmi in 18.50..24.99->{
                 resultText="Normal"
                 color=R.color.normal
+                info.text="Good going"
             }
             bmi in 25.00..29.99->{
                 resultText="Overweight"
                 color=R.color.over_weight
+                info.text="Lose weight you phat cock"
             }
             bmi>29.99->{
                 resultText="Obese"
                 color=R.color.obese
+                info.text="You are a burden on earth"
             }
+            }
+            if(weight==69f || height==69f){
+                info.text= info.text as String + "..Also you got some nice numbers"
             }
         resultDescription.setTextColor(ContextCompat.getColor(this,color))
         resultDescription.text=resultText
